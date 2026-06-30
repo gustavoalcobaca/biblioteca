@@ -58,7 +58,30 @@ const biblioteca = {
         }
     
         console.log("Livro não encontrado");
-    }
+    },
+    devolver(nome){
+        for(let i = 0; i < this.livros.length; i++){
+            const l = this.livros[i];
+
+            if(l.nome === nome){
+                if(l.disponivel === false){
+                    l.disponivel = true;
+                    l.alugado = false;
+                    l.estoque +=1;
+
+                    
+
+                    console.log(nome + " devolvido com sucesso");
+                    return;
+                }
+                else{
+                    console.log("O " + nome + " não está alugado");
+                    return;
+                }
+            }
+        }
+        console.log("Livro não encontrado");
+    } 
 };
 
 biblioteca.adicionarLivros(
@@ -107,3 +130,4 @@ console.log(biblioteca.livros);
 biblioteca.mostrarLivros();
 
 biblioteca.alugar("Attack on Titan")
+
