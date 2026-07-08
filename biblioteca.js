@@ -78,20 +78,70 @@ export const biblioteca = {
         console.log("Livro não encontrado.");
         return false;
     },
-    removerLivro(nome){
-        for(let i = 0; i < this.livros.length; i++){
-            if(this.livros[i].nome.toLowerCase() === nome.toLowerCase()){
-                const removido = this.livros[i]
-                this.livros.splice(i,1);
-                console.log("Livro removido", removido.nome);
-                return;
-}} console.log("Livro não encontrado");
-},
-buscar(nome){
-    for(let i = 0; i<this.livros.length; i++){
-        const l = this.livros[i]
-        if(l.nome.toLowerCase() === nome.toLowerCase()){
-            console.log("Livro encontrado:");
+    
+    livrosDisponiveis() {
+        const disponiveis = [];
+    
+        for (let i = 0; i < this.livros.length; i++) {
+            if (this.livros[i].estoque > 0) {
+                disponiveis.push(this.livros[i]);
+            }
+        }
+    
+        return disponiveis;
+    },
+
+    estatisticas() {
+        let disponiveis = 0;
+        let alugados = 0;
+        let totalExemplares = 0;
+        let maisAlugado = null;
+    
+        for (let i = 0; i < this.livros.length; i++) {
+            const livro = this.livros[i];
+    
+            disponiveis += livro.estoque;
+            alugados += livro.alugados;
+            totalExemplares += livro.estoqueTotal;
+    
+            if (maisAlugado === null || livro.vezesAlugado > maisAlugado.vezesAlugado) {
+                maisAlugado = livro;
+            }
+        }
+    
+        return {
+            totalLivros: this.livros.length,
+            totalExemplares: totalExemplares,
+            disponiveis: disponiveis,
+            alugados: alugados,
+            maisAlugado: maisAlugado
+        };
+    },
+
+    removerLivro(nome) {
+        for (let i = 0; i < this.livros.length; i++) {
+
+            if (this.livros[i].nome.toLowerCase() === nome.toLowerCase()) {
+
+                const removido = this.livros[i];
+                this.livros.splice(i, 1);
+
+                console.log("Livro removido:", removido.nome);
+                return true;
+            }
+        }
+
+        console.log("Livro não encontrado.");
+        return false;
+    },
+
+    buscarLivro(nome) {
+        for (let i = 0; i < this.livros.length; i++) {
+
+            const l = this.livros[i];
+
+            if (l.nome.toLowerCase() === nome.toLowerCase()) {
+                console.log("Livro encontrado:");
                 console.log(l);
             return l;
         }
@@ -142,24 +192,24 @@ biblioteca.adicionarLivros(
 biblioteca.mostrarLivros();
 
 // Alugar
-biblioteca.alugar("Attack on Titan");
-biblioteca.alugar("Attack on Titan");
-biblioteca.alugar("Attack on Titan");
+//biblioteca.alugar("Attack on Titan");
+//biblioteca.alugar("Attack on Titan");
+//biblioteca.alugar("Attack on Titan");
 
 // Devolver
-biblioteca.devolver("Attack on Titan");
-biblioteca.devolver("Attack on Titan");
-biblioteca.devolver("Attack on Titan");
+//biblioteca.devolver("Attack on Titan");
+//biblioteca.devolver("Attack on Titan");
+//biblioteca.devolver("Attack on Titan");
 
 
 // Mostrar novamente
 biblioteca.mostrarLivros();
 
 //remover
-biblioteca.removerLivro("Jujutsu Kaisen");
+//biblioteca.removerLivro("Jujutsu Kaisen");
 
 //buscar
-biblioteca.buscar("Demon Slayer");
+//biblioteca.buscarLivro("Demon Slayer");
 
 biblioteca.mostrarTabela();
 biblioteca.mostrarLivros();
