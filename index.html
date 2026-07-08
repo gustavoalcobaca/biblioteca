@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 Sistema de Biblioteca</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="app.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Sistema de Biblioteca</h1>
+            <p>Gerencie seus livros de forma simples</p>
+        </header>
+
+        <!-- FORMULÁRIO PARA ADICIONAR -->
+        <section class="form-section">
+            <h2>📖 Adicionar Livro</h2>
+            <form id="form-livro">
+                <div class="form-row">
+                    <input type="text" id="nome" placeholder="Nome do livro" required>
+                    <input type="text" id="autor" placeholder="Autor" required>
+                </div>
+                <div class="form-row">
+                    <input type="text" id="Genero" placeholder="Genero" required>
+                    <input type="number" id="estoque" placeholder="Estoque" required>
+                </div>
+                <button type="submit">➕ Adicionar</button>
+            </form>
+        </section>
+
+        <!-- AÇÕES -->
+        <section class="actions">
+            <button onclick="mostrarTodos()">📋 Ver Todos</button>
+            <button onclick="mostrarDisponiveis()">✅ Disponíveis</button>
+            <button onclick="mostrarEstatisticas()">📊 Estatísticas</button>
+        </section>
+
+        <!-- ALUGUEL E DEVOLUÇÃO -->
+        <section class="loan-section">
+            <h2>🔄 Aluguel / Devolução</h2>
+            <div class="loan-row">
+                <div class="loan-group">
+                    <input type="text" id="alugar-nome" placeholder="Nome para alugar">
+                    <button onclick="alugarLivro()">📤 Alugar</button>
+                </div>
+                <div class="loan-group">
+                    <input type="text" id="devolver-nome" placeholder="Nome para devolver">
+                    <button onclick="devolverLivro()">📥 Devolver</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- BUSCA E REMOÇÃO -->
+        <section class="search-section">
+            <div class="search-row">
+                <div class="search-group">
+                    <input type="text" id="buscar-nome" placeholder="Buscar livro">
+                    <button onclick="buscarLivro()">🔍 Buscar</button>
+                </div>
+                <div class="search-group">
+                    <input type="text" id="remover-nome" placeholder="Nome para remover">
+                    <button onclick="removerLivro()">🗑️ Remover</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- MENSAGENS -->
+        <div id="mensagem"></div>
+
+        <!-- LISTA DE LIVROS -->
+        <section class="list-section">
+            <h2>📋 Lista de Livros</h2>
+            <div id="lista-livros">
+                <p class="carregando">⏳ Carregando livros...</p>
+            </div>
+        </section>
+
+        <footer>
+            <p>📚 Biblioteca Digital - Projeto JavaScript</p>
+        </footer>
+    </div>
+</body>
+</html>

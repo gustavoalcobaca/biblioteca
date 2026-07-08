@@ -1,11 +1,10 @@
-const biblioteca = {
+export const biblioteca = {
     livros: [],
 
-    adicionarLivros(nome, autor, ano, genero, estoque) {
+    adicionarLivros(nome, autor, genero, estoque) {
         const livro = {
             nome,
             autor,
-            ano,
             genero,
             estoque,
             estoqueTotal: estoque,
@@ -14,16 +13,17 @@ const biblioteca = {
         };
 
         this.livros.push(livro);
+        return true;
     },
 
     mostrarLivros() {
-            console.log("=== LISTA DE LIVROS ===");
+        console.log("=== LISTA DE LIVROS ===");
 
         for (let i = 0; i < this.livros.length; i++) {
             const livro = this.livros[i];
 
             console.log(
-                `${i + 1}. ${livro.nome} - ${livro.autor} (${livro.ano}) | ${livro.genero} | Alugado ${livro.vezesAlugado}x | Estoque: ${livro.estoque}`
+                `${i + 1}. ${livro.nome} - ${livro.autor} | ${livro.genero} | Alugado ${livro.vezesAlugado}x | Estoque: ${livro.estoque}/${livro.estoqueTotal}`
             );
         }
     },
@@ -32,49 +32,51 @@ const biblioteca = {
         console.table(this.livros);
     },
 
-
     alugar(nome) {
         for (let i = 0; i < this.livros.length; i++) {
             const l = this.livros[i];
-                        if (l.nome === nome) {
+
+            if (l.nome.toLowerCase() === nome.toLowerCase()) {
 
                 if (l.estoque > 0) {
                     l.estoque--;
-                    l.alugados+=1;
+                    l.alugados++;
                     l.vezesAlugado++;
 
                     console.log(nome + " alugado com sucesso!");
-                    return;
+                    return true;
                 }
 
                 console.log("O livro " + nome + " está sem estoque.");
-                return;
+                return false;
             }
         }
 
         console.log("Livro não encontrado.");
+        return false;
     },
 
     devolver(nome) {
         for (let i = 0; i < this.livros.length; i++) {
             const l = this.livros[i];
 
-            if (l.nome === nome) {
+            if (l.nome.toLowerCase() === nome.toLowerCase()) {
 
                 if (l.alugados > 0) {
                     l.alugados--;
                     l.estoque++;
 
                     console.log(nome + " devolvido com sucesso!");
-                    return;
+                    return true;
                 }
 
                 console.log("Nenhum exemplar de " + nome + " está alugado.");
-                return;
+                return false;
             }
         }
 
         console.log("Livro não encontrado.");
+        return false;
     },
     removerLivro(nome){
         for(let i = 0; i < this.livros.length; i++){
@@ -104,7 +106,6 @@ buscar(nome){
 biblioteca.adicionarLivros(
     "Attack on Titan",
     "Hajime Isayama",
-    2009,
     "Ação",
     3
 );
@@ -112,7 +113,6 @@ biblioteca.adicionarLivros(
 biblioteca.adicionarLivros(
     "One Piece",
     "Eiichiro Oda",
-    1997,
     "Aventura",
     3
 );
@@ -120,7 +120,6 @@ biblioteca.adicionarLivros(
 biblioteca.adicionarLivros(
     "Naruto",
     "Masashi Kishimoto",
-    1999,
     "Ação",
     3
 );
@@ -128,7 +127,6 @@ biblioteca.adicionarLivros(
 biblioteca.adicionarLivros(
     "Jujutsu Kaisen",
     "Gege Akutami",
-    2018,
     "Fantasia Sombria",
     3
 );
@@ -136,7 +134,6 @@ biblioteca.adicionarLivros(
 biblioteca.adicionarLivros(
     "Demon Slayer",
     "Koyoharu Gotouge",
-    2016,
     "Ação",
     3
 );
